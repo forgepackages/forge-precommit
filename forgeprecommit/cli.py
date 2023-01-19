@@ -1,3 +1,5 @@
+import subprocess
+
 import click
 from forgecore import Forge
 from forgecore.packages import forgepackage_installed
@@ -44,5 +46,14 @@ def cli(ctx, install):
 
 
 def django_db_connected():
-    print("TODO")
-    return True
+    try:
+        Forge().manage_cmd(
+            "showmigrations",
+            "--skip-checks",
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        return True
+    except subprocess.CalledProcessError:
+        return False
