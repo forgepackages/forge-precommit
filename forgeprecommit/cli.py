@@ -17,7 +17,7 @@ def cli(ctx, install):
         return
 
     if forgepackage_installed("forge-format"):
-        forge.venv_cmd("forge format", check=True)
+        forge.venv_cmd("forge", "format", "--check", check=True)
 
     if not django_db_connected():
         click.echo()
@@ -40,7 +40,7 @@ def cli(ctx, install):
     if forgepackage_installed("forge-test"):
         click.echo()
         click.secho("Running tests", bold=True)
-        forge.venv_cmd("forge test", check=True)
+        forge.venv_cmd("forge", "test", check=True)
 
 
 def django_db_connected():
