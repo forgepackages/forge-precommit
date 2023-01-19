@@ -46,14 +46,10 @@ def cli(ctx, install):
 
 
 def django_db_connected():
-    try:
-        Forge().manage_cmd(
-            "showmigrations",
-            "--skip-checks",
-            check=True,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-        return True
-    except subprocess.CalledProcessError:
-        return False
+    result = Forge().manage_cmd(
+        "showmigrations",
+        "--skip-checks",
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    return result.returncode == 0
